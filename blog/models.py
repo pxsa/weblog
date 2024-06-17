@@ -11,7 +11,7 @@ class Post(models.Model):
     text = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    status = models.CharField(choices=STATUS_CHOICES, default='draft', max_length=3)
+    status = models.CharField(choices=STATUS_CHOICES, default='drf', max_length=3)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
