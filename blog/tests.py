@@ -11,9 +11,17 @@ class BlogPostTest(TestCase):
 		self.post = Post.objects.create(
 					title = 'post1',
 					text = 'some text for description',
-					status = Post.STATUS_CHOICES[0],
+					status = Post.STATUS_CHOICES[0][0],
 					author = self.user,
 				)
+
+		self.post_draft = Post.objects.create(
+				title = 'post2',
+				text = 'some text',
+				status = Post.STATUS_CHOICES[1][0],
+				author = self.user,
+			)
+
 
 	def test_all_by_url(self):
 		response = self.client.get('/blog/')
@@ -37,3 +45,11 @@ class BlogPostTest(TestCase):
 	def test_post_detail_404(self):
 		response = self.client.get(reverse('post_detail', args=[999]))
 		self.assertEqual(response.status_code, 404)
+
+
+	def test_draft_post(self):
+		response = self.client.get(reverse('all_posts'))
+		# post 1 -> published
+		self.assertContains(response, self.post.title)
+		# post 2 -> draft
+		self.assertNotContains(response, self.post_draft.title)

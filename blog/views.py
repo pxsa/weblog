@@ -8,7 +8,7 @@ def say_hi(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 def all(request):
-    all_posts = Post.objects.all()
+    all_posts = Post.objects.filter(status='pub')
     return render(request, 'blog/posts.html', {'posts': all_posts})
 
 def detail(request, post_id):
