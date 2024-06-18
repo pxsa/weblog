@@ -6,21 +6,26 @@ from .models import Post
 
 # Create your tests here.
 class BlogPostTest(TestCase):
-	def setUp(self):
-		self.user = User.objects.create(username='user1')
-		self.post = Post.objects.create(
+
+	@classmethod
+	def setUpTestData(cls):
+		cls.user = User.objects.create(username='user1')
+		cls.post = Post.objects.create(
 					title = 'post1',
 					text = 'some text for description',
 					status = Post.STATUS_CHOICES[0][0],
-					author = self.user,
+					author = cls.user,
 				)
 
-		self.post_draft = Post.objects.create(
+		cls.post_draft = Post.objects.create(
 				title = 'post2',
 				text = 'some text',
 				status = Post.STATUS_CHOICES[1][0],
-				author = self.user,
+				author = cls.user,
 			)
+
+	# def setUp(self):
+	# 	pass
 
 
 	def test_all_by_url(self):
