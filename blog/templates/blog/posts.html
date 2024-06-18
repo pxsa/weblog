@@ -1,13 +1,14 @@
 {% extends '_base.html'%}
 
 {%block title%}
-    posts
+    Posts
 {%endblock%}
-
+<div class="card card-body mt-3">
 {%block content%}
    {% for post in posts %}
     <h3>{{ post.title }}</h3>
-    <p> {{ post.text }} </p>
     <p> {{ post.date_created }}</p>
+    <a href="{% url 'post_detail' post.id %}" class="btn btn-info">Detail</a>
    {% endfor %}
 {%endblock%}
+</div>

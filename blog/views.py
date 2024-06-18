@@ -10,3 +10,7 @@ def say_hi(request):
 def all(request):
     all_posts = Post.objects.all()
     return render(request, 'blog/posts.html', {'posts': all_posts})
+
+def detail(request, post_id):
+    post = Post.objects.get(id = post_id)
+    return render(request, 'blog/detail.html', {'post': post})

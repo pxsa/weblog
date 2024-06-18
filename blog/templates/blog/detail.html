@@ -1,0 +1,16 @@
+{% extends '_base.html'%}
+
+{%block title%}
+    Detail
+{%endblock%}
+<div class="card mt-3 p-4 ">
+   <div class="card-body">
+      {%block content%}
+         
+          <h3>{{ post.title }}</h3>
+          <p> {{ post.text }} </p>
+          <p> {{ post.date_created }}</p>
+
+      {%endblock%}
+   </div>
+</div>
