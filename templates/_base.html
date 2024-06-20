@@ -9,8 +9,10 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light bg-dark">
         <span class="navbar-brand mb-0 h1">Navbar</span>
+        <a href="{% url 'all_posts' %}">Home</a>
+        <a href="{% url 'create_post' %}">Create</a>
     </nav>
 
     <div class="container">

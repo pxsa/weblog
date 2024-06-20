@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 from .models import Post
 
@@ -17,3 +18,16 @@ def detail(request, post_id):
     if post is None:
         return HttpResponse("page not founded", status=401 )
     return render(request, 'blog/detail.html', {'post': post})
+
+
+def create_post(request):
+    if request.method == 'GET':
+        return render(request, 'blog/create_post.html')
+    elif request.method == 'POST':
+        
+        post_title = request.POST.get('title')
+        post_text = request.POST.get('text')
+        user = User.objects.all()[0]
+        Post.objects.create(title = post_title, text = post_text, status = 'pub', author = user)
+
+        return render(request, 'blog/create_post.html')
