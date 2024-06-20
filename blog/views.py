@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 
 from .models import Post
+from .forms import PostCreateForm
 
 # Create your views here.
 def say_hi(request):
@@ -21,13 +22,24 @@ def detail(request, post_id):
 
 
 def create_post(request):
-    if request.method == 'GET':
-        return render(request, 'blog/create_post.html')
-    elif request.method == 'POST':
-        
-        post_title = request.POST.get('title')
-        post_text = request.POST.get('text')
-        user = User.objects.all()[0]
-        Post.objects.create(title = post_title, text = post_text, status = 'pub', author = user)
+    if request.method == 'POST':
+        form = PostCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('all_posts')
+    else:
+        form = PostCreateForm()
 
-        return render(request, 'blog/create_post.html')
+    return render(request, 'blog/create_post.html', context={'form':form})
+
+
+    # if request.method == 'GET':
+    #     return render(request, 'blog/create_post.html')
+    # else request.method == 'POST':
+        
+    #     post_title = request.POST.get('title')
+    #     post_text = request.POST.get('text')
+    #     user = User.objects.all()[0]
+    #     Post.objects.create(title = post_title, text = post_text, status = 'pub', author = user)
+
+    #     return render(request, 'blog/create_post.html')

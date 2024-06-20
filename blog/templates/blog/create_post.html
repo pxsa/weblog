@@ -5,12 +5,13 @@
 {% endblock %}
 
 {% block content %}
-	<div class="bord">
-		<div class="bord-body shadow-lg">
+	<div class="card mt-3">
+		<div class="card-body shadow-lg">
 			<form class="form" method="POST" action="#">
 				{% csrf_token %}
-				<input type="text" name="title">
-				<input type="text" name="text">
+				{{ form }}
+				<!-- <input type="text" name="title">
+				<input type="text" name="text"> -->
 				<input type="submit" value="Create">
 			</form>
 		</div>
