@@ -9,10 +9,26 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-light bg-dark">
-        <span class="navbar-brand mb-0 h1">Navbar</span>
-        <a href="{% url 'all_posts' %}">Home</a>
-        <a href="{% url 'create_post' %}">Create</a>
+    <nav class="navbar navbar-light bg-info text-light">
+        <div class="row justify-content-start g-3 text-align-center align-item-center">
+            <div>
+                <a class="text-light mb-0 m-2" href="{% url 'all_posts' %}">Home</a>
+            </div>
+            <div>
+                <a class="text-light mb-0 m-2" href="{% url 'create_post' %}">Create</a>
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                    welcome {{user.username}} | 
+                    <form class="inline-block" action="{% url 'logout' %}" method='POST'>
+                        {% csrf_token %}
+                        <button class="btn btn-sm" type="submit">logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">login</a>
+                {% endif %}
+            </div>
+        </div>
     </nav>
 
     <div class="container">
