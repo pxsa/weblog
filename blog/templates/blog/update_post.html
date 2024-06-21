@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+
+{% block title %}
+	Update Post
+{% endblock %}
+
+
+
+{% block content %}
+<div class="mt-2">
+	<form method="POST" action="#">
+		<div class="card p-3 mt-3">
+			<div class="card-body">
+				{% csrf_token %}
+				{{ form }}		
+				<input type="submit" value="Update">
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}

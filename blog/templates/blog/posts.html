@@ -10,7 +10,10 @@
       <div class="card-body">
           <h3>{{ post.title }}</h3>
           <p> {{ post.date_created }}</p>
-          <a href="{% url 'post_detail' post.id %}" class="btn btn-info">Detail</a>
+            <div class="row justify-content-end">
+               <a class="btn btn-info mx-1" href="{% url 'post_detail' post.id %}">Detail</a>
+               <a class="btn btn-info mx-1" href="{% url 'update_post' post.id %}">Update</a>
+            </div>
       </div>
    </div>
    {% endfor %}

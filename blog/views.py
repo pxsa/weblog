@@ -33,6 +33,40 @@ def create_post(request):
     return render(request, 'blog/create_post.html', context={'form':form})
 
 
+def update_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    form = PostCreateForm(instance = post)
+
+    if request.method == 'POST':
+        if request.POST.is_valid():
+            print(request.POST.cleaned_data)
+    else:
+        pass
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'blog/update_post.html', context=context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def create_post(request):
     # if request.method == 'GET':
     #     return render(request, 'blog/create_post.html')
     # else request.method == 'POST':
