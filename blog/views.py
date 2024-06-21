@@ -35,13 +35,11 @@ def create_post(request):
 
 def update_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    form = PostCreateForm(instance = post)
+    form = PostCreateForm(request.POST or None, instance = post)
 
-    if request.method == 'POST':
-        if request.POST.is_valid():
-            print(request.POST.cleaned_data)
-    else:
-        pass
+    if form.is_valid():
+        form.save()
+        return redirect('all_posts')
 
     context = {
         'form': form,
@@ -49,7 +47,9 @@ def update_post(request, post_id):
 
     return render(request, 'blog/update_post.html', context=context)
 
-
+def remove_post(request, post_id):
+    Post.objects.filter(id=post_id).delete()
+    return redirect('all_posts')
 
 
 
