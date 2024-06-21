@@ -58,3 +58,32 @@ class BlogPostTest(TestCase):
 		self.assertContains(response, self.post.title)
 		# post 2 -> draft
 		self.assertNotContains(response, self.post_draft.title)
+
+
+	def test_create_post(self):
+		response = self.client.post(reverse('create_post'), {
+				'title': 'some title',
+				'text': 'some text',
+				'status': Post.STATUS_CHOICES[0][0],
+				'author': self.user.id,
+			})
+		self.assertEqual(response.status_code, 302)
+		self.assertEqual(Post.objects.last().title, 'some title')
+		self.assertEqual(Post.objects.last().text, 'some text')
+
+	def test_update_post(self):
+		response = self.client.post(reverse('update_post', args=[self.post_draft.id]), {
+				'title': 'Post1 Updated',
+				'text': 'This text is Updated',
+				'status': Post.STATUS_CHOICES[0][0],
+				'author': self.user.id,
+			})
+
+		self.assertEqual(response.status_code, 302)
+		self.assertEqual(Post.objects.last().title, 'Post1 Updated')
+		self.assertEqual(Post.objects.last().text, 'This text is Updated')
+
+
+	def test_remove_post(self):
+		response = self.client.post(reverse('remove_post', args=[self.post.id]))
+		self.assertEqual(response.status_code, 302)
