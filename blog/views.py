@@ -43,8 +43,8 @@ def create_post(request):
     return render(request, 'blog/create_post.html', context={'form':form})
 
 
-def update_post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+def update_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
     form = PostCreateForm(request.POST or None, instance = post)
 
     if form.is_valid():
@@ -57,10 +57,10 @@ def update_post(request, post_id):
 
     return render(request, 'blog/update_post.html', context=context)
 
-def remove_post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+def remove_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
 
-    Post.objects.filter(id=post_id).delete()
+    Post.objects.filter(id=pk).delete()
     return redirect('all_posts')
 
 
